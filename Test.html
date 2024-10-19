@@ -9,182 +9,225 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-
         body {
-            background-color: #1b4a6b;
+            background-color: #b84c16;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: auto;
         }
 
         #clockbox {
-            text-align: center;
             position: absolute;
-            left: 10px;
+            top: 10px;
+            right: 30px;
+            text-align: right;
+            z-index: 10;
         }
 
         .weatherwidget-io {
             position: absolute;
-            left: 350px;
-            top: 25px;
-            height: 200%;
-            width: 100%;
-            max-width: 1150px;
-            min-width: 100px;
+            top: calc(10px + 250px); /* Adjust height for the widget to be below the clock */
+            right: 30px; /* Align it to the right */
+            text-align: right; /* Ensure text is right-aligned inside the widget */
+            z-index: 10; /* Ensure it stays above other elements */
         }
 
-        #searchBarContainer {
-            position: absolute;
-            right: 40px;
-            top: 200px;
+        .slides {
+            display: none;
         }
 
-        #searchBar {
-            width: 750px; /* Adjust width as needed */
-            padding: 10px;
-            font-size: 16px;
+        img {
+            width: 50%; /* Set a fixed width for images */
+            height: auto;
+            object-fit: contain;
+            max-width: 100vw;
+            max-height: 190vh;
+            border-radius: 5%;
+            margin: 10px 0; /* Margin to space out the images */
         }
 
-        #searchResult {
-            position: absolute;
-            right: 25px;
-            top: 275px;
-            color: white;
-            width: 100%;
-            max-width: 0px;
-            min-width: 750px;
+        .slideshow-container {
+            position: absolute; /* Change to absolute positioning */
+            top: 10px; /* Align it vertically with the clock */
+            left: 30px; /* Position it to the left */
+            width: auto; /* Remove the width restriction */
+            height: auto; /* Allow it to adjust based on content */
+            display: flex;
+            flex-direction: column; /* Align items vertically */
+            overflow: hidden;
+            z-index: 5; /* Ensure it's behind the clock */
         }
 
-        .microphone {
-            position: absolute;
-            right: 10px;
-            top: 200px;
-            border: none;
-            cursor: pointer;
-            appearance: none;
-            background-color: inherit;
+        .fade {
+            animation-name: fade;
+            animation-duration: 1s;
         }
 
-        .microphone_img {
-            width: 40px;
-            height: 40px;
+        .responsive {
+            max-width: 100%;
+            height: auto;
         }
 
-        .music {
-            position: absolute;
-            right: 700px;
-            top: 145px;
-            border: none;
-            cursor: pointer;
-            appearance: none;
-            background-color: inherit;
-        }
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
 
-        .music_img {
-            width: 65px;
-            height: 43.13px;
+            to {
+                opacity: 1
+            }
         }
     </style>
-
-    <script>function search(searchQuery) {
-            		const query = searchQuery;
-            		if (window.pywebview) {
-                		window.pywebview.api.search(query).then(response => {
-					document.getElementById('searchResult').innerText = response;
-				});
-            		} else {
-                		alert('pywebview is not available');
-            		}
-        	}
-		function listening() {
-			if (window.pywebview) {
-                		window.pywebview.api.listening().then(response => {
-					document.getElementById('searchResult').innerText = response;
-				});
-            		} else {
-                		alert('pywebview is not available');
-            		}
-		}
-		function music() {
-			if (window.pywebview) {
-                		window.pywebview.api.music();
-            		} else {
-                		alert('pywebview is not available');
-            		}
-		}
-		document.addEventListener("DOMContentLoaded", function() {
-            		document.getElementById('searchBar').addEventListener('keypress', function(event) {
-                		if (event.key === 'Enter') {
-                    			var searchQuery = event.target.value;
-                    			search(searchQuery);
-                    			event.target.value = ''; // Clear the search bar
-                		}
-            		});
-        	});</script>
 
 </head>
 
 <body>
+    <h2 style="text-align: center; "> Wake-Up Alarrm: 7:00 AM </h2>
 
     <div id="clockbox"></div>
 
-    <script type="text/javascript">var tday=["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
-		var tmonth=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    <div class="slideshow-container">
 
-		function GetClock(){
-    			var d = new Date();
-    			var nday = d.getDay(), nmonth = d.getMonth(), ndate = d.getDate(), nyear = d.getFullYear();
-    			var nhour = d.getHours(), nmin = d.getMinutes(), nsec = d.getSeconds();
+        <div class="slides fade">
+            <img src="eating.jpg" alt="Eating">
+        </div>
 
-    			if(nhour == 24){ nhour = 0; }
+        <div class="slides fade">
+            <img src="julian.jpg" alt="Julian">
+        </div>
 
-    			if(nmin <= 9) nmin = "0" + nmin;
-    			<!-- ## if(nsec <= 9) nsec = "0" + nsec; -->
-
-    			<!-- var clocktext = "<span style=\"font:97pt Arial; color:#ffffff;\">" + nhour + ":" + nmin + "</span> <br> <span style=\"font:14pt Arial; color:#ccccff;\">" + tday[nday] + ", " + tmonth[nmonth] + " " + ndate + ", " + nyear + "</span>"; -->
-
-    			var clocktext = "<span style=\"font:97pt Arial; color:#ffffff;\">" + nhour + ":" + nmin + "</span> <br> <span style=\"font:14pt Arial; color:#ccccff;\">";
-
-    			document.getElementById('clockbox').innerHTML = clocktext;
-		}
-
-		GetClock();
-		setInterval(GetClock, 1000);</script>
-
-    <!--Below is a weather widget from weatherwidget.io you can go there to personalize this code for your own needs  -->
-
-    <a class="weatherwidget-io" href="https://forecast7.com/en/37d23n80d41/blacksburg/?unit=us" data-label_1="BLACKSBURG" data-label_2="WEATHER" data-theme="original">BLACKSBURG WEATHER</a>
-
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');</script>
-
-    <!-- So much fun learning, so little time!  - Randynose.com   -->
-    <!-- Adding a typeable search bar with adjusted position and size -->
-
-    <div id="searchBarContainer">
-
-        <input type="search" id="searchBar" placeholder="What do you want?">
+        <div class="slides fade">
+            <img src="mustache.jpg" alt="Mustache">
+        </div>
 
     </div>
 
-    <button class="microphone" type="submit" onclick="listening()">
-
-        <img class="microphone_img" src="C:\Users\bwroe\OneDrive\Desktop\Programs\micro-removebg-preview.png" alt="Microphone" border="0" />
-
-    </button>
-
-    <button class="music" type="submit" onclick="music()">
-
-        <img class="music_img" src="C:\Users\bwroe\OneDrive\Desktop\Programs\music.png" alt="Music" border="0" />
-
-    </button>
-
-    <!-- Div to display the search result -->
-
-    <div id="searchResult"></div>
-
-    <div id="contentframe" style="position:absolute; top: 150px; left: 25px;">
-
-        <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&bgcolor=%234285F4&showTitle=0&showPrint=0&showCalendars=0&src=Yndyb2V0aW5nQGdtYWlsLmNvbQ&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=dDIxZWFyYWJranVvZjRidGZiMWhnZHZhamc2NXY3c2FAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%234285F4&color=%23F6BF26&color=%23D50000" style="border:solid 1px #777" width="700" height="600" frameborder="0" scrolling="no"></iframe>
-
+    <div id="weatherbox">
+        <a class="weatherwidget-io" href="https://forecast7.com/en/37d23n80d41/blacksburg/?unit=us"
+           data-label_1="BLACKSBURG"
+           data-label_2="WEATHER"
+           data-font="Ubuntu"
+           data-icons="Climacons Animated"
+           data-theme="original">
+            BLACKSBURG WEATHER
+        </a>
     </div>
 
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = 'https://weatherwidget.io/js/widget.min.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, 'script', 'weatherwidget-io-js'));
+    </script>
+
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("slides");
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            slideIndex++;
+
+            if (slideIndex > slides.length) { slideIndex = 1 }
+
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 15000);
+        }
+    </script>
+
+    <script type="text/javascript">
+        var tday = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+        var tmonth = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        function GetClock() {
+            var d = new Date();
+            var nday = d.getDay();
+            var nmonth = d.getMonth();
+            var ndate = d.getDate();
+            var nyear = d.getFullYear();
+            var nhour = d.getHours();
+            var nmin = d.getMinutes();
+            var nsec = d.getSeconds();
+
+            var timeperiod = nhour >= 12 ? "PM" : "AM";
+
+            nhour %= 12;
+
+            if (nmin <= 9) { nmin = "0" + nmin; }
+
+            if (nsec <= 9) { nsec = "0" + nsec; }
+
+            var clocktext = "<span style=\"font:60pt Swiss; color:#ffffff;\"> Welcome, Julian Miller </span> <br> <span style=\"font:75pt Swiss; color:#ffffff;\">" + nhour + ":" + nmin + " " + timeperiod + "</span> <br> <span style=\"font:18pt Swiss; color:#ffffff;\">" + tday[nday] + ", " + tmonth[nmonth] + " " + ndate + ", " + nyear + "</span>";
+
+            document.getElementById('clockbox').innerHTML = clocktext;
+        }
+
+        GetClock();
+        setInterval(GetClock, 100);
+    </script>
+
+    <!--    <div id="contentframe" style="position: absolute; top: calc(10px + 250px); right: calc(30px + 250px);">
+
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&bgcolor=%234285F4&showTitle=0&showPrint=0&showCalendars=0&src=Yndyb2V0aW5nQGdtYWlsLmNvbQ&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=dDIxZWFyYWJranVvZjRidGZiMWhnZHZhamc2NXY3c2FAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%234285F4&color=%23F6BF26&color=%23D50000" style="border: solid 1px #ff9662 " width="700" height="500" frameborder="0" scrolling="no"></iframe>
+
+        </div>-->
+
+    <div class="planner" style="position: absolute; top: calc(10px + 250px); right: calc(30px + 250px);">
+        <div class="schedule">
+
+            <div class="tab-pane">
+                <div class="schedule-list">
+
+                    <div class="schedule-item">
+                        <div class="time">
+                            <span>9</span>
+                            <span>am</span>
+                        </div>
+                        <div class="description">
+                            <div class="description-header">Brainstorm on User Stories</div>
+                            <div class="description-content">
+                                <p>Lorem Ipsum dolor sit amet.</p>
+                                <ul class="contact-list">
+                                    <li class="contact">
+                                        <a href="#"><img src="http://gravatar.com/avatar/8b1d44e3b2310823bd41d609003b70a9?s=80" alt="" /></a>
+                                    </li>
+                                    <li class="contact">
+                                        <a href="#"><img src="http://gravatar.com/avatar/8b1d44e3b2310823bd41d609003b70a9?s=80" alt="" /></a>
+                                    </li>
+                                    <li class="contact add-contact">
+                                        <a href="#"><i class="icon-plus"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="schedule-item free">
+                        <div class="time">
+                            <span>10</span>
+                            <span>am</span>
+                        </div>
+                        <div class="description">
+                            <div class="description-header">No Schedule</div>
+                            <div class="description-content">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </body>
 
 </html>

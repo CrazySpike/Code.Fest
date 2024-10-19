@@ -1,4 +1,2 @@
-print('Hello World!')
-print('This edit works!')
+print("Hello, World!")
 
-print("Hi")
