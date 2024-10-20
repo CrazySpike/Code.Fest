@@ -46,10 +46,13 @@
 
         svg {
             position: absolute;
-            width: 1520px;
-            height: 705px;
-            fill: white;
-            opacity: 50%;
+            width: 1700px;
+            height: 900px;
+            fill: rgba(5, 54, 111, 0.5);
+        }
+
+        rect {
+            border-radius: 5%;
         }
 
         ul {
@@ -60,9 +63,9 @@
         .weatherwidget-io {
             position: absolute;
             top: calc(60px + 200px); /* Adjust height for the widget to be below the clock */
-            left: 37%; /* Align it to the right */
+            left: 43%; /* Align it to the right */
             text-align: right; /* Ensure text is right-aligned inside the widget */
-            width: 62%;
+            width: 56%;
             z-index: 10; /* Ensure it stays above other elements */
         }
 
@@ -115,8 +118,8 @@
 
 </head>
 
-<svg>
-    <rect x="550" y="20" width="1000" height="800" />
+<svg width="1700" height="900">
+    <rect x="726" y="375" width="950" height="1000" rx="50" ry="50" fill="rgba(5, 54, 111, 0.5)" />
 </svg>
 
 <body>
@@ -125,20 +128,20 @@
     <div class="slideshow-container">
 
         <div class="slides fade">
-            <img src="eating.jpeg" alt="Eating">
+            <img src="eating2.jpg">
         </div>
 
         <div class="slides fade">
-            <img src="julian.jpg" alt="Julian">
+            <img src="julian.jpg">
         </div>
 
         <div class="slides fade">
-            <img src="mustache.jpg" alt="Mustache">
+            <img src="mustache.jpg">
         </div>
 
     </div>
 
-    <a class="weatherwidget-io" href="https://forecast7.com/en/37d23n80d41/blacksburg/?unit=us" data-label_1="BLACKSBURG" data-label_2="WEATHER" data-font="Swiss" data-icons="Climacons Animated" data-days="5" data-basecolor="rgba(5, 54, 111, 0.5)" data-textcolor="#ffffff">BLACKSBURG WEATHER</a>
+    <a class="weatherwidget-io" href="https://forecast7.com/en/37d23n80d41/blacksburg/?unit=us" data-label_1="BLACKSBURG" data-label_2="WEATHER" data-font="Swiss" data-icons="Climacons Animated" data-days="3" data-basecolor="rgba(5, 54, 111, 0.5)" data-textcolor="#ffffff">BLACKSBURG WEATHER</a>
 
     <script>
         !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
@@ -219,10 +222,10 @@
                             <span font: 30t Swiss;>Upcoming</span>
                             <ul class="contact-list">
                                 <li class="contact add-contact">
-                                    <a>cool thing 1<i class="icon-plus"></i></a>
+                                    <a>Poga by the Beatch at 2 PM<i class="icon-plus"></i></a>
                                 </li>
                                 <li class="contact add-contact">
-                                    <a>cool thing 2<i class="icon-plus"></i></a>
+                                    <a>Kids Club Movie Night at 8 PM<i class="icon-plus"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -240,10 +243,10 @@
         <span font: 30t Swiss;>Staff Picks</span>
         <ul class="contact-list">
             <li class="contact add-contact">
-                <a>Breakfeast from 7 AM to 11 AM<i class="icon-plus"></i></a>
+                <a>Phi Phi Island Tour  at 10 AM<i class="icon-plus"></i></a>
             </li>
             <li class="contact add-contact">
-                <a>Dinner from 5 PM to 10 PM<i class="icon-plus"></i></a>
+                <a>Paddle Boarding on the Andaman Sea<i class="icon-plus"></i></a>
             </li>
         </ul>
     </div>
