@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<!-- import the font type // change to whatever you want (try the middle one actually, I don't really like the proxima. Make sure to replace Proxima+Nova with the spaces being +')-->
+<link href='https://fonts.googleapis.com/css?family=Proxima+Nova' rel='stylesheet' type='text/css'>
+
+
+
+<head>
+    <title>Mystery Gang</title>
+    
+    <meta http-equiv="refresh" content="600" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            background-color: #ff9662;
+            background-image: url('water.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            opacity: 1;
+        }
+
+        .overlay {
+            background-color: rgba(255, 255, 255, 0.25); /* White with 50% transparency */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        #clockbox {
+            position: absolute;
+            top: 50px;
+            right: 30px;
+            text-align: right;
+            z-index: 10;
+        }
+
+        .weatherwidget-io {
+            position: absolute;
+            top: calc(60px + 200px); /* Adjust height for the widget to be below the clock */
+            left: 37%; /* Align it to the right */
+            text-align: right; /* Ensure text is right-aligned inside the widget */
+            width: 62%;
+            z-index: 10; /* Ensure it stays above other elements */
+        }
+
+        .slides {
+            display: none;
+        }
+
+        img {
+            width: 50%; /* Set a fixed width for images */
+            height: auto;
+            object-fit: contain;
+            max-width: 100vw;
+            max-height: 190vh;
+            border-radius: 5%;
+            margin: 10px 0; /* Margin to space out the images */
+        }
+
+        .slideshow-container {
+            position: absolute; /* Change to absolute positioning */
+            top: 10px; /* Align it vertically with the clock */
+            left: 30px; /* Position it to the left */
+            width: auto; /* Remove the width restriction */
+            height: auto; /* Allow it to adjust based on content */
+            display: flex;
+            flex-direction: column; /* Align items vertically */
+            overflow: hidden;
+            z-index: 5; /* Ensure it's behind the clock */
+        }
+
+        .fade {
+            animation-name: fade;
+            animation-duration: 1s;
+        }
+
+        .responsive {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="clockbox"></div>
+
+
+    <div class="slideshow-container">
+
+        <div class="slides fade">
+            <img src="eating.jfif" alt="Eating">
+        </div>
+
+        <div class="slides fade">
+            <img src="julian.jpg" alt="Julian">
+        </div>
+
+        <div class="slides fade">
+            <img src="mustache.jpg" alt="Mustache">
+        </div>
+
+    </div>
+
+    <a class="weatherwidget-io" href="https://forecast7.com/en/37d23n80d41/blacksburg/?unit=us" data-label_1="BLACKSBURG" data-label_2="WEATHER" data-font="Swiss" data-icons="Climacons Animated" data-days="5" data-basecolor="rgba(5, 54, 111, 0.5)" data-textcolor="#ffffff">BLACKSBURG WEATHER</a>
+
+    <script>
+        !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
+    </script>
+
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("slides");
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            slideIndex++;
+
+            if (slideIndex > slides.length) { slideIndex = 1 }
+
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 15000);
+        }
+    </script>
+
+    <script type="text/javascript">
+        var tday = ["Sunday", "Monday", "Tuesday", "Wedesday", "Thursday", "Friday", "Saturday"];
+        var tmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        function GetClock() {
+            var d = new Date();
+            var nday = d.getDay();
+            var nmonth = d.getMonth();
+            var ndate = d.getDate();
+            var nyear = d.getFullYear();
+            var nhour = d.getHours();
+            var nmin = d.getMinutes();
+            var nsec = d.getSeconds();
+
+            var timeperiod = (nhour >= 12) ? "PM" : "AM";
+
+            nhour %= 12;
+            nhour = (nhour === 0) ? 12 : nhour;
+
+            if (nmin <= 9) { nmin = "0" + nmin; }
+
+            if (nsec <= 9) { nsec = "0" + nsec; }
+            
+
+            // I changed my mind actually don't hate this layout, I did make code for 
+            var clocktext = "<span style=\"font:60pt Proxima Nova; font-weight: bold; color:#ffffff;\"> Welcome Mystery Gang </span> <br> <span style=\"font:75pt Proxima Nova; font-weight: bold; color:#ffffff;\">" + nhour + ":" + nmin + " " + timeperiod + "   ~   " + "</span> <span style=\"vertical-align: text-bottoms; font:35pt Proxima Nova; font-weight: Bold; font-weight: bold; color:#ffffff;\">" + tday[nday] + " " + tmonth[nmonth] + " " + ndate + "</span> <br> <span style=\"font:35pt Proxima Nova; font-weight: bold; color:#ffffff;\">" + nyear + "</span>";
+
+
+
+            document.getElementById('clockbox').innerHTML = clocktext;
+
+        }
+
+        GetClock();
+        setInterval(GetClock, 100);
+    </script>
+
+    <div class="planner" style="position: absolute; top: calc(10px + 400px); right: calc(60px + 500px); font: 20pt Swiss; font-weight: bold; color: #ffffff ">
+        <div class="schedule">
+            <div class="tab-pane">
+                <div class="schedule-list">
+                    <div class="schedule-item">
+                        <div class="Hotel Events">
+                            <span font: 30t Swiss;>Hotel Events</span>
+                            <ul class="contact-list">
+                                <li class="contact add-contact">
+                                    <a>Breakfest from 7 AM to 11 AM<i class="icon-plus"></i></a>
+                                </li>
+                                <li class="contact add-contact">
+                                    <a>Dinner from 5 PM to 10 PM<i class="icon-plus"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
